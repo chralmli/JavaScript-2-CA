@@ -1,0 +1,95 @@
+// layout-related styles, grid, header, footer
+.container-fluid {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 400px;
+    @media (min-width: $breakpoint-md) {
+        padding: 0;
+    }
+}
+
+.background-image-holder {
+    position: relative;
+    background: url(../images/ironcrew-muscle-bg.png);
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    height: 100vh;
+}
+
+.auth-form-col, .motivational-mobile {
+    max-width: 400px;
+    background-color: rgba($color-dark, 0.7);
+    border-radius: 10px;
+    padding: 2rem;
+    box-shadow: 0 4px 8px rgba($color-dark, 0.1);
+}
+
+.auth-form-col {
+    width: 100%;
+    max-width: 400px;
+
+}
+
+.motivational-line {
+    font-size: 5.5rem;
+    color: $color-accent-2;
+    font-weight: bold;
+
+    @media (max-width: $breakpoint-md) {
+        font-size: 3.5rem;
+    }
+}
+
+.motivational-desktop {
+    position: absolute;
+    left: 15%;
+    top: 20%;
+    max-width: 600px;
+    @media (max-width: $breakpoint-md) {
+        display: none;
+    }
+}
+
+.motivational-mobile {
+    @media (min-width: $breakpoint-md) {
+        display: none;
+    }
+}
+
+// Responsive adjustments for auth-form-col
+.auth-form-col {
+    @media (min-width: $breakpoint-md) {
+        order: 2;
+    }
+}
+
+.container {
+    width: auto;
+
+    @media (min-width: 1200px) {
+        max-width: 1140px;
+    }
+}
+
+.follow-list-sidebar {
+    position: fixed;
+    right: -250px;
+    top: 0;
+    width: 250px;
+    height: 100%;
+    background-color: $color-dark;
+    transition: right 0.3s ease-in-out;
+
+    .sidebar-content {
+        padding: 20px;
+        overflow-y: auto;
+        height: 100%;
+    }
+
+    &.sidebar-visible {
+        right: 0;
+    }
+}
