@@ -63,6 +63,30 @@ span {
     margin-right: 0.5rem;
   }
 }
+.feedback {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 10px;
+  border-radius: 5px;
+  color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: opacity 0.5s;
+  z-index: 1000;
+}
+
+.feedback-success {
+  background-color: #4caf50;
+}
+
+.feedback-error {
+  background-color: #f44336;
+}
+
+.feedback-info {
+  background-color: #2196f3;
+}
+
 .btn-primary {
   background-color: #d03e00;
   border: none;

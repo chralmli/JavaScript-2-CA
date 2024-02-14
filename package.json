@@ -1,35 +1,40 @@
 {
-  "name": "css-frameworks-ca",
+  "name": "javascript-2-ca",
   "version": "0.0.1",
   "description": "A starting point for the CSS Frameworks CA project",
   "scripts": {
     "test": "echo \"We will learn more about testing in the Workflow course\" && exit 1",
-    "sass": "sass --watch src/scss:src/css",
-    "start": "live-server"
+    "sass": "sass --watch src/scss/index.scss:src/css/index.css",
+    "start": "live-server",
+    "compile:sass": "sass --watch src/scss/index.scss:src/css/index.css"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/NoroffFEU/css-frameworks-ca.git"
+    "url": "git+https://github.com/chralmli/JavaScript-2-CA.git"
   },
   "keywords": [
-    "CSS",
+    "JS",
     "CSS",
     "Frameworks",
     "Bootstrap",
+    "API",
+    "JWT Authentication",
     "SCSS",
     "SASS"
   ],
-  "author": "Oliver Dipple <oliver.dipple@noroff.no>",
+  "author": "Christian Almli <chrisalm97@gmail.com>",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/NoroffFEU/css-frameworks-ca/issues"
+    "url": "https://github.com/chralmli/JavaScript-2-CA/issues"
   },
-  "homepage": "https://github.com/NoroffFEU/css-frameworks-ca#readme",
+  "homepage": "https://github.com/chralmli/JavaScript-2-CA#readme",
   "dependencies": {
     "bootstrap": "^5.3.2",
     "bootstrap-icons": "^1.11.3",
     "icons": "^1.0.0",
-    "live-server": "^1.2.2",
+    "live-server": "^1.2.2"
+  },
+  "devDependencies": {
     "sass": "^1.70.0"
   }
 }
