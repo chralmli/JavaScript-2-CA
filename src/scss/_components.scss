@@ -313,7 +313,7 @@
     .modal {
         display: none;
         position: fixed;
-        z-index: 101;
+        z-index: 1051;
         left: 0;
         top: 0;
         width: 100%;
@@ -336,8 +336,6 @@
             .close {
                 color: $color-dark;
                 float: right;
-                font-size: 28px;
-                font-weight: bold;
 
                 &:hover,
                 &:focus {

@@ -1,31 +1,44 @@
+import { fetchPosts } from "../../src/api/postsApi.js";
+
 const renderPosts = (posts) => {
     const postsContainer = document.querySelector('.posts-grid');
     postsContainer.innerHTML = '';
 
-    posts.forEach(post => {
-        const postElement = document.createElement('div');
-        postElement.className = 'col-md-4 mb-4';
-        postElement.innerHTML = `
-            <div class="card">
-                <img src="${post.avatar.url}" class="card-img-top" alt="${post.avatar.alt}">
-                <div class="card-body">
-                    <h5 class="card-title">${post.title}</h5>
-                    <p class="card-text">${post.content}</p>
-                    <div class="post-meta">
-                        <span class="likes"><i class="fas fa-thumbs-up"></i> ${post.likes} Likes</span>
-                        <span class="comments"><i class="fas fa-comment"></i> ${post.comments} Comments</span>
+    if (Array.isArray(posts) && posts.length > 0) {
+        posts.forEach(post => {
+            const avatarUrl = post.avatar && post.avatar.url ? post.avatar.url : 'https://i.ibb.co/b56xqf9/default-avatar.png';
+            const avatarAlt = post.avatar && post.avatar.alt ? post.avatar.alt : 'Default avatar';
+            const postElement = document.createElement('div');
+            postElement.className = 'col-md-4 mb-4';
+            postElement.innerHTML = `
+                <div class="card">
+                    <img src="${avatarUrl}" class="card-img-top" alt="${avatarAlt}">
+                    <div class="card-body">
+                        <h5 class="card-title">${post.title}</h5>
+                        <p class="card-text">${post.content}</p>
+                        <div class="post-meta">
+                            <span class="likes"><i class="fas fa-thumbs-up"></i> ${post.likes} Likes</span>
+                            <span class="comments"><i class="fas fa-comment"></i> ${post.comments} Comments</span>
+                        </div>
                     </div>
                 </div>
-            </div>
-        `;
-        postsContainer.appendChild(postElement);
-    });
+            `;
+            postsContainer.appendChild(postElement);
+        });
+    } else {
+        postsContainer.innerHTML = '<p>No posts available. Create your first post!</p>';
+    }
 };
 
-const loadPosts = async () => {
+export const loadPosts = async () => {
     try {
-        const posts = await fetchPosts();
-        renderPosts(posts);
+        const response = await fetchPosts();
+        const posts = response.data;
+        if (Array.isArray(posts) && posts.length > 0) {
+            renderPosts(posts);
+        } else {
+            console.warn("No posts available.");
+        }
     } catch (error) {
         console.error("Failed to load posts:", error);
     }

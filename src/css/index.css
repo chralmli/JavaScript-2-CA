@@ -285,7 +285,7 @@ span {
 .feed-page .modal {
   display: none;
   position: fixed;
-  z-index: 101;
+  z-index: 1051;
   left: 0;
   top: 0;
   width: 100%;
@@ -309,8 +309,6 @@ span {
 .feed-page .modal .modal-content .close {
   color: #0d0d0d;
   float: right;
-  font-size: 28px;
-  font-weight: bold;
 }
 .feed-page .modal .modal-content .close:hover, .feed-page .modal .modal-content .close:focus {
   color: #d03e00;
