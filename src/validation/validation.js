@@ -15,8 +15,8 @@ export const validateRegistrationForm = (formData) => {
     }
 
     // Bio validation: must be less than 160 characters
-    if (formData.bio && formData.bio.length > 160) {
-        return {valid: false, message: "Bio must be less than 160 characters." };
+    if (formData.bio && formData.bio.length > 250) {
+        return {valid: false, message: "Bio must be less than 250 characters." };
     }
 
     // Avatar URL validation: must be a valid URL

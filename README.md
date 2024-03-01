@@ -1,51 +1,45 @@
-# IronCrew Social Media App - CSS Frameworks CA
-## About IronCrew
+# IronCrew Social Media App
+This project is a fitness-focused social media platform that connects users through their workouts, progress, and motivational stories.
 
-IronCrew is a social media platform designed specifically for fitness enthusiasts and gym-goers. This app connects like-minded individuals, allowing them to share their workout experiences, fitness tips, and motivational stories.
+## Getting Started
+To get started with this project, you can clone the repository from GitHub and run it locally on your machine. You'll need to have Node.js and npm installed on your system.
 
-### Key Features
+1.
+Clone the repository:
+git clone https://github.com/your-username/ironcrew-social-media-app.git
+2.
+Install dependencies:
+npm install
+3.
+Start the development server:
+npm start
+4.
+Navigate to http://localhost:5500 in your browser.
 
-    - Personalized Feed: Stay updated with the latest posts from the community.
-    - User Profiles: Create and customize your profile to share your fitness journey.
-    - Workout Tracking: Log your workouts and track your progress.
-    - Community Engagement: Like, comment, and share posts. Follow other users to stay connected.
-    - Responsive Design: Enjoy a seamless experience on both mobile and desktop devices.
+
+Technologies Used
+JavaScript
+HTML
+CSS
+Node.js
+Express
+MongoDB
+Mongoose
+JWT
+Bootstrap
 
 
-### Technologies Used
+Brief of the Course Assignment
+For this course assignment, you will be creating a README file for the IronCrew Social Media App. The app is a fitness-focused platform that allows users to connect and share their workout experiences.
 
-    - HTML5, CSS3, and JavaScript
-    - Bootstrap for responsive design
-    - SASS for advanced styling
-    - Netlify for deployment
+Contributing
+Contributions are welcome! If you have suggestions for improvements, please open an issue or pull request. Thank you!
 
-### Brief of the Course Assignment
+License
+This project is licensed under the MIT License - see the LICENSE file for details.
 
-#### Goal
+Authors and Acknowledgement
 
-To apply knowledge of Bootstrap and SASS to build a responsive front end for a social media application.
 
-#### Brief
+Christian Almli - Initial
 
-You are tasked with creating 3 pages in HTML using Bootstrap and SASS:
-
-    1. Authentication page (/index.html)
-    2. Feed Page (/feed/index.html)
-    3. Profile page (/profile/index.html)
-
-The authentication page should have a form to login or register to the application. Ensure to include HTML form validation and use /profile as the action attribute. Password must have a minimum length of 8 characters.
-
-The feed page should have a list of posts thumbnails, a search bar, sort options and a form to create a new post. You may add additional design features beyond these requirements.
-
-The profile page should have a profile image, username, list of user posts, follow button and an area to display following/followers.
-
-There is no requirment for JS functionality beyond Bootstrap UX behaviour. For example, using the provided dropdowns, tabs or carousel is acceptable but there is no further requirement for custom JS.
-
-Submission for this project will follow the pattern used in professional development. You are expected to seek feedback from your peers to complete this assignment. When requesting feedback it is useful to ask for a specific area to be reviewed in order to get the most out of your feedback.
-
-### Contributing
-
-I do not accept contributions to the IronCrew app at the moment, as it is a school project.
-
-### Authors and Acknowledgment
-- Christian Almli - Initial work
