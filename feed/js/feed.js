@@ -13,17 +13,25 @@ const renderPosts = (posts) => {
             const postImageAlt = post.media && post.media.alt ? post.media.alt : 'Default post image';
             
             const postElement = document.createElement('div');
-            postElement.className = 'col-md-4 mb-4';
+            postElement.className = 'col-md-4 custom-col-md mb-3';
             postElement.innerHTML = `
-                <div class="card">
-                    <img src="${avatarUrl}" class="card-img-top" alt="${avatarAlt}">
+                <div class="card post-card">
+                    <div class="post-header d-flex align-items-center p-2">
+                        <img src="${avatarUrl}" class="post-profile-pic rounded-circle me-2" alt="${avatarAlt}">
+                        <div class="post-user-info">
+                            <div class="username">${post.author || 'Anonymous'}</div>
+                            <small class="text-muted">Posted on ${new Date(post.created).toLocaleDateString()}</small>
+                        </div>
+                    </div>
+                    <div class="post-img-container">
+                        <img src="${postImageUrl}" class="post-img" alt="${postImageAlt}">
+                    </div>
                     <div class="card-body">
                         <h5 class="card-title">${post.title}</h5>
-                        <p class="card-text">${post.content}</p>
-                        <img src="${postImageUrl}" class="card-img" alt="${postImageAlt}">
-                        <div class="post-meta">
-                            <span class="likes"><i class="fas fa-thumbs-up"></i> ${post.likes} Likes</span>
-                            <span class="comments"><i class="fas fa-comment"></i> ${post.comments} Comments</span>
+                        <p class="card-text">${post.body}</p>
+                        <div class="post-meta d-flex justify-content-between align-items-center">
+                            <span><i class="bi bi-hand-thumbs-up"></i> ${post._count && post._count.reactions ? post._count.reactions : 0} Likes</span>
+                            <span><i class="bi bi-chat"></i> ${post._count && post._count.comments ? post._count.comments : 0} Comments</span>
                         </div>
                     </div>
                 </div>

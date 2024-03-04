@@ -4,6 +4,7 @@ import { showFeedback } from './feedback/feedback.js';
 import { createApiKey } from './api/authApi.js'
 import { setToken } from './utils/storage.js'
 
+
 // Handle registration
 export async function handleRegistration(event) {
     event.preventDefault();
@@ -11,16 +12,7 @@ export async function handleRegistration(event) {
     const userData = {
         name: document.getElementById('registerUsername').value,
         email: document.getElementById('registerEmail').value,
-        password: document.getElementById('registerPassword').value,
-        bio: document.getElementById('bio').value,
-        avatar: {
-            url: document.getElementById('avatar_url').value || undefined,
-            alt: document.getElementById('avatar_alt').value || undefined,
-        },
-        banner: {
-            url: document.getElementById('banner_url').value || undefined,
-            alt: document.getElementById('banner_alt').text || undefined,
-        }
+        password: document.getElementById('registerPassword').value
     };
     const validationResult = validateRegistrationForm(userData);
     if (!validationResult.valid) {
@@ -34,6 +26,16 @@ export async function handleRegistration(event) {
             console.log(response.data.name);
             console.log(response.data.email);
             showFeedback('Registration successful!', 'success');
+
+            // Switch to login tab after successful registration
+            const loginTabElement = document.querySelector('#login-tab');
+            if (loginTabElement) {
+                const loginTab = new bootstrap.Tab(loginTabElement);
+                loginTab.show();
+            } else {
+                console.error("Login tab element not found.");
+            }
+            document.getElementById('registration-form').reset();
         } else {
             console.error("Unexpected response structure:", response);
             const errorMessage = response?.error?.message || response?.message || "Registration failed with an unexpected error.";

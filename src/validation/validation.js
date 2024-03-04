@@ -1,18 +1,26 @@
-export const validateRegistrationForm = (formData) => {
+// Function to validate registration form
+export const validateRegistrationForm = ({ name, email, password }) => {
     // Name validation: no punctuation except underscore
-    if (!/^[a-zA-Z0-9_]+$/.test(formData.name)) {
+    if (!/^[a-zA-Z0-9_]+$/.test(name)) {
         return { valid: false, message: "Name must not contain punctuation apart from underscore (_)." };
     }
 
     // Email validation: must be a valid stud.noroff.no email address
-    if (!/^[a-zA-Z0-9._%+-]+@stud.noroff.no$/.test(formData.email)) {
+    if (!/^[a-zA-Z0-9._%+-]+@stud.noroff.no$/.test(email)) {
         return { valid: false, message: "Email must be a valid stud.noroff.no address." };
     }
 
     // Password validation: at least 8 characters
-    if (formData.password.length < 8) {
+    if (password.length < 8) {
         return { valid: false, message: "Password must be at least 8 characters." };
     }
+
+    // If all validations pass
+    return { valid: true };
+};
+
+// Function to validate the full registration form
+export const validateProfileForm = (formData) => {
 
     // Bio validation: must be less than 160 characters
     if (formData.bio && formData.bio.length > 250) {
@@ -64,3 +72,5 @@ const isValidUrl = (urlString) => {
         return false;
     }
 };
+
+

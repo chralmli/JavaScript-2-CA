@@ -191,117 +191,64 @@
         @media (min-width: 992px) {
             grid-template-columns: repeat(3, 1fr);
         }
+    }
 
-        // Image container
-        .post-img-container {
-            width: 100%;
-            height: 250px;
-            overflow: hidden;
-            position: relative;
-    
-            .post-img {
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                width: auto;
-                height: 100%;
-                max-width: 300px;
-                transform: translate(-50%, -50%);
-                display: block;
-                object-fit: cover;
-                border-radius: 10px;
+    // Individual post card
+    .post-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        &:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .post-header {
+            .post-profile-pic {
+                width: 40px;
+                height: 40px;
+                object-fit: contain;
             }
         }
 
-        // Individual Post
-        .post {
-            background-color: $color-light;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 4px 8px rgba($color-dark, 0.2);
-            margin-bottom: 20px;
+        .post-img-container {
+            position: relative;
+            width: 100%;
+            .post-img {
+                width: 100%;
+                height: 300px;
+                object-fit: cover;
+                border-radius: 0;
+            }
+        }
 
-            // Post Header
-            .post-header {
-                display: flex;
-                align-items: center;
-                margin-bottom: 1rem;
-    
-                // Profile Picture
-                .post-profile-pic {
-                    width: 40px;
-                    height: 40px;
-                    border-radius: 50%;
-                    margin-right: 10px;
-                }
-
-                // User Info
-                .post-user-info {
-                    display: flex;
-                    flex-direction: column;
-                    font-family: $secondary-font;
-
-                    .username {
-                        font-weight: 800;
-                        margin-bottom: 2px;
-                    }
-
-                    small.text-muted {
-                        font-size: smaller;
-                    }
-                }
+        .card-body {
+            .card-title {
+                color: $color-accent-1;
             }
 
-            // Post Content
-            .post-content {
-                padding: 1rem;
-
-                // Title and Posted Time
-                .title-and-posted {
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-    
-                    small {
-                        color: $color-accent-2;
-                        font-family: $secondary-font;
-                        font-style: italic;
-                    }
-                }
-
-                // Post Title and Text
-                .post-title {
-                    color: darken($color-accent-2, 10%);
-                    font-size: 1.2rem;
-                    font-family: $alternative-font;
-                    margin-bottom: 0.5rem;
-                    margin-top: 0.5rem;
-                }
-
-                .post-text {
-                    font-family: $secondary-font;
-                    color: $color-dark;
-                    margin-bottom: 1rem;
-                }
-
-                // Post Meta
-                .post-meta {
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-    
-                    .post-interactions {
-                        display: flex;
-                        align-items: center;
-
-                        span {
-                            display: flex;
-                            align-items: center;
-                            margin-left: 15px;
+            .card-text {
+                font-family: $secondary-font;
+            }
             
-                            i {
-                                margin-right: 5px;
-                            }
+            .post-meta {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+
+                small {
+                    font-family: $secondary-font;
+                    font-style: italic;
+                }
+
+                .post-reactions {
+                    display: flex;
+
+                    span {
+                        display: inline-flex;
+                        align-items: center;
+                        margin-right: 10px;
+
+                        i {
+                            margin-right: 5px;
                         }
                     }
                 }
