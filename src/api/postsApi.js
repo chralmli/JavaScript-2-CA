@@ -2,8 +2,12 @@ import { fetchWithToken } from './apiUtils.js';
 import { getToken } from '../utils/storage.js';
 import { API_KEY } from '../config.js';
 
-export async function fetchPosts() {
+export async function fetchPosts(tag = '') {
     const accessToken = getToken();
+    let url = '/social/posts';
+    if (tag) {
+        url += `?tag=${tag}`;
+    }
     return await fetchWithToken('/social/posts', { 
         method: 'GET',
         headers: {

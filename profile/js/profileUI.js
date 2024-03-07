@@ -1,9 +1,9 @@
 // Update the user information
 export function updateUserInformation(profile) {
-    document.querySelector('.profile-image').src = profile.avatarUrl || 'https://cdn.pixabay.com/photo/2015/0';
-    document.querySelector('.profile-image').alt = profile.avatarAlt || 'Default avatar';
-    document.querySelector('.username').textContent = profile.username || 'John Doe';
+    document.querySelector('.username').textContent = profile.name || 'John Doe';
     document.querySelector('.user-bio').textContent = profile.bio || 'Bio not provided';
+    document.querySelector('.profile-image').src = profile.avatar.url || 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png';
+    document.querySelector('.profile-image').alt = profile.avatarAlt || 'Default avatar';
 }
 
 // Display the user's posts

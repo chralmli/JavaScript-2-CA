@@ -1,8 +1,10 @@
 import * as authApi from './api/authApi.js';
 import { validateRegistrationForm, validateLoginForm } from './validation/validation.js';
 import { showFeedback } from './feedback/feedback.js';
-import { createApiKey } from './api/authApi.js'
-import { setToken } from './utils/storage.js'
+import { createApiKey } from './api/authApi.js';
+import { fetchProfile } from '../src/api/profileApi.js';
+import { setToken } from './utils/storage.js';
+import { setSessionData } from './utils/storage.js';
 
 
 // Handle registration
@@ -62,25 +64,34 @@ export async function handleLogin(event) {
     }
 
     try {
-        const response = await authApi.login(loginData);
-        console.log("Login response:", response);
+        const authResponse = await authApi.login(loginData);
+        console.log("Login response:", authResponse);
 
-        if (response.data && response.data.accessToken) {
-            console.log(`Access Token: ${response.data.accessToken}`);
-            setToken(response.data.accessToken);
-            showFeedback('Login successful!', 'success');
+        if (authResponse.data && authResponse.data.accessToken) {
+            console.log(`Access Token: ${authResponse.data.accessToken}`)
+            setToken(authResponse.data.accessToken);
+
+            localStorage.setItem('userName', authResponse.data.name);
+
+            const profileResponse = await fetchProfile();
+            console.log("Profile response:", profileResponse);
+            setSessionData(authResponse.data.accessToken, profileResponse.data);
+            showFeedback(`Welcome ${profileResponse.data.name}`, 'success');
+
 
             const apiKey = await createApiKey();
             console.log(`API Key: ${apiKey}`);
 
             window.location.href = '/feed/index.html'
         } else {
-            const errorMessage = response.data.message || 'Unexpected error';
+            const errorMessage = authResponse.data.message || 'Unexpected error';
             showFeedback(`Login failed: ${errorMessage}', 'error`);
         }
     } catch (error) {
         showFeedback('An error occurred during login: ' + (error.message || 'Unknown error'), 'error');
         console.error('Login error:', error);
+        showFeedback('An error occurred while fetching profile data: ' + (error.message || 'Unknown error' ), 'error');
+        console.error('Fetching profile data error: ', error);
     }
 }
 

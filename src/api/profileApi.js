@@ -2,9 +2,13 @@ import {fetchWithToken } from './apiUtils.js';
 import { getToken } from '../utils/storage.js';
 import { API_KEY } from '../config.js';
 
-export async function fetchProfile(profileName = '') {
+export async function fetchProfile() {
     const accessToken = getToken();
-    let url = `https://v2.api.noroff.dev/social/profiles${profileName ? '/' + profileName : ''}`;
+    const userName = localStorage.getItem('userName');
+    if (!userName) {
+        throw new Error('User name is not available');
+    }
+    let url = `/social/profiles/${userName}`;
     
     return await fetchWithToken(url, { 
         method: 'GET',
@@ -13,4 +17,10 @@ export async function fetchProfile(profileName = '') {
             'X-Noroff-API-Key': API_KEY,
         }
     });
+}
+
+export async function fetchPostsByProfile() {
+    const userName = localStorage.getItem('userName');
+    const url = `/social/profiles/${userName}/posts`;
+    return await fetchWithToken(url, {method: 'GET'});
 }

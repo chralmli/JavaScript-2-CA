@@ -1,5 +1,5 @@
 import { handleLogin, handleRegistration } from '../formHandler.js'
-import { clearToken } from '../utils/storage.js'
+import { clearSessionData } from '../utils/storage.js'
 
 function setupAuthEventListeners() {
     const registrationForm = document.getElementById('registration-form');
@@ -18,7 +18,7 @@ function setupAuthEventListeners() {
 }
 
 function handleLogout() {
-    clearToken();
+    clearSessionData();
     window.location.href = '/index.html';
 }
 

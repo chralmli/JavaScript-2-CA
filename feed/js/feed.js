@@ -43,11 +43,21 @@ const renderPosts = (posts) => {
     }
 };
 
-export const loadPosts = async () => {
+document.getElementById('postTagsFilter').addEventListener('change', async (event) => {
+    const selectedTag = event.target.value;
+    loadPosts(selectedTag);
+});
+
+export const loadPosts = async (tag = '') => {
     try {
         const response = await fetchPosts();
-        const posts = response.data;
+        let posts = response.data;
+
         if (Array.isArray(posts) && posts.length > 0) {
+            // Get selected filter option
+            const selectedFilter = document.querySelector('#filterOptions').value;
+            posts = applyFilter(selectedFilter, posts);
+
             renderPosts(posts);
         } else {
             console.warn("No posts available.");
@@ -56,5 +66,18 @@ export const loadPosts = async () => {
         console.error("Failed to load posts:", error);
     }
 };
+
+document.getElementById('filterOptions').addEventListener('change', async (event) => {
+    loadPosts();
+});
+
+const applyFilter = (filterCriteria, posts) => {
+    switch (filterCriteria) {
+        case 'mostLiked':
+            return posts.sort((a, b) => (b._count.reactions || 0) - (a._count.reactions || 0));
+            default:
+                return posts;
+    }
+}
 
 document.addEventListener('DOMContentLoaded', loadPosts);
