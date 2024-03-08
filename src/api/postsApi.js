@@ -2,13 +2,15 @@ import { fetchWithToken } from './apiUtils.js';
 import { getToken } from '../utils/storage.js';
 import { API_KEY } from '../config.js';
 
-export async function fetchPosts(tag = '') {
+export async function fetchPosts(tag = '', sort = 'latest', searchQuery = '') {
+    const queryParams = new URLSearchParams();
     const accessToken = getToken();
-    let url = '/social/posts';
-    if (tag) {
-        url += `?tag=${tag}`;
-    }
-    return await fetchWithToken('/social/posts', { 
+
+    if (tag) queryParams.append('_tag', tag);
+
+    let url = `/social/posts?${queryParams.toString()}`;
+
+    return await fetchWithToken(url, { 
         method: 'GET',
         headers: {
             'Authorization': `Bearer ${accessToken}`,

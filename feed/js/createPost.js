@@ -11,8 +11,8 @@ export const handlePostSubmit = async (event) => {
     const title = document.getElementById('postTitle').value;
     const body = document.getElementById('postContent').value;
     const imageUrl = document.getElementById('postImage').value;
-    const tagsInput = document.getElementById('postTags').value;
-    const tags = tagsInput ? tagsInput.split(',').map(tag => tag.trim()) : [];
+    const selectedOptions = document.getElementById('postTagsSelect').selectedOptions;
+    const tags = Array.from(selectedOptions).map(option => option.value);
     
     const postData = {
         title: title,

@@ -40,24 +40,18 @@
                 <input type="text" class="form-control me-2" placeholder="Search posts...">
                 <button type="submit" class="btn btn-primary">Search</button>
             </form>
-            <!-- Sort and Filter -->
-            <div class="sort-filter-options">
-                <button class="btn btn-secondary me-1 sort-latest">Latest</button>
-                <button class="btn btn-secondary sort-popular">Popular</button>
-                <!-- Filter Options -->
-                <select id="filterOptions" class="form-select w-auto">
-                    <option value="all">All Posts</option>
-                    <option value="mostLiked">Most Liked</option>
-                </select>
-                <!-- Filter by Tags -->
-                <select id="postTagsFilter" class="form-select w-auto">
-                    <option value="All">Filter By Tag</option>
-                    <option value="Nutrition">Nutrition</option>
-                    <option value="Workouts">Workouts</option>
-                    <option value="Motivation">Motivation</option>
-                    <option value="Progress">Progress</option>
-                    <option value="Equipment">Equipment</option>
-                </select>
+            <!-- Filters and Sorting -->
+            <div class="row mb-3">
+                <div class="col-auto">
+                    <select id="sortOptions" class="form-select">
+                        <option value="latest">Latest</option>
+                        <option value="mostLiked">Most Liked</option>
+                        <option value="mostCommented">Most Commented</option>
+                    </select>
+                </div>
+            </div>
+            <div class="tags-container mb-3" id="tagFilters">
+                <!-- Dynamically added tag filter chips -->
             </div>
         </div>
 
@@ -99,9 +93,16 @@
                             </div>
 
                             <!-- Tags Input -->
-                            <div class="mb-3 form-group">
-                                <label for="postTags" class="form-label">Tags (comma separated)</label>
-                                <input type="text" class="form-control" id="postTags" placeholder="Enter tags, e.g., Nutrition,Workout">
+                            <div class="mb-3">
+                                <label for="postTagsSelect" class="form-label">Tags</label>
+                                <select multiple id="postTagsSelect" class="form-select">
+                                    <option value="Nutrition">Nutrition</option>           
+                                    <option value="Workouts">Workouts</option>
+                                    <option value="Motivation">Motivation</option>
+                                    <option value="Progress">Progress</option>
+                                    <option value="Equipment">Equipment</option>
+                                    <option value="Supplements">Supplements</option>
+                                </select>
                             </div>
 
                             <div class="modal-footer">

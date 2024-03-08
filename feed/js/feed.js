@@ -1,5 +1,7 @@
 import { fetchPosts } from "../../src/api/postsApi.js";
 
+const availableTags = ['Nutrition', 'Workouts', 'Motivation', 'Progress', 'Equipment', 'Supplements'];
+
 const renderPosts = (posts) => {
     const postsContainer = document.querySelector('.posts-grid');
     postsContainer.innerHTML = '';
@@ -43,31 +45,35 @@ const renderPosts = (posts) => {
     }
 };
 
-document.getElementById('postTagsFilter').addEventListener('change', async (event) => {
-    const selectedTag = event.target.value;
-    loadPosts(selectedTag);
-});
-
-export const loadPosts = async (tag = '') => {
+export const loadPosts = async (tag = '', sort = 'latest', searchQuery = '') => {
     try {
-        const response = await fetchPosts();
+        const response = await fetchPosts(tag, sort, searchQuery);
         let posts = response.data;
 
         if (Array.isArray(posts) && posts.length > 0) {
-            // Get selected filter option
-            const selectedFilter = document.querySelector('#filterOptions').value;
-            posts = applyFilter(selectedFilter, posts);
-
+            const sortOption = document.getElementById('sortOptions').value;
+            posts = applyFilter(sortOption, posts);
             renderPosts(posts);
         } else {
             console.warn("No posts available.");
+            document.querySelector('.posts-grid').innerHTML = `<p class="text-center">No posts available for "${tag}" tag.</p>`;
         }
     } catch (error) {
         console.error("Failed to load posts:", error);
+        document.querySelector('.posts-grid').innerHTML = `<p class="text-center text-danger">An error occurred while loading posts.</p>`;
     }
 };
 
-document.getElementById('filterOptions').addEventListener('change', async (event) => {
+document.addEventListener('DOMContentLoaded', () => {
+    const tagFiltersDiv  = document.getElementById('tagFilters');
+    availableTags.forEach(tag => {
+        const button = document.createElement('button');
+        button.classList.add('btn', 'btn-outline-primary', 'btn-sm', 'tag-chip');
+        button.textContent = tag;
+        button.onclick = () => loadPosts(tag);
+        tagFiltersDiv.appendChild(button);
+    });
+
     loadPosts();
 });
 
