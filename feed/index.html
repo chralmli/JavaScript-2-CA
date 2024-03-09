@@ -58,6 +58,26 @@
 
         <!-- Posts Grid -->
         <div class="row posts-grid"></div>
+
+        <!-- Post details Modal -->
+        <div class="modal fade" id="postDetailsModal" tabindex="-1" aria-labelledby="postDetailsModal" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="postDetailsModalLabel">Post Details</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Post details are dynamically inserted here -->
+                        <h2 id="modalPostTitle"></h2>
+                        <p id="modalPostBody"></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         
 
         <!-- Floating Button -->

@@ -2,7 +2,7 @@ import { fetchWithToken } from './apiUtils.js';
 import { getToken } from '../utils/storage.js';
 import { API_KEY } from '../config.js';
 
-export async function fetchPosts(tag = '', sort = 'latest', searchQuery = '') {
+export async function fetchPosts(tag = '', sort = 'latest', searchQuery = '', includeAuthor = true) {
     const queryParams = new URLSearchParams();
     const accessToken = getToken();
 
@@ -11,6 +11,9 @@ export async function fetchPosts(tag = '', sort = 'latest', searchQuery = '') {
 
     // Append search query if it exists
     if (searchQuery) queryParams.append('q', searchQuery);
+
+    // Request author data
+    if (includeAuthor) queryParams.append('_author', 'true');
 
     // Handle sorting
     if (sort === 'mostLiked') {
@@ -24,6 +27,19 @@ export async function fetchPosts(tag = '', sort = 'latest', searchQuery = '') {
     // Construct URL
     let url = `/social/posts?${queryParams.toString()}`;
     
+    return await fetchWithToken(url, { 
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${accessToken}`,
+            'X-Noroff-API-Key': API_KEY,
+        }
+    });
+}
+
+export async function fetchPostsById(postId) {
+    const accessToken = getToken();
+    let url = `/social/posts/${postId}`;
+
     return await fetchWithToken(url, { 
         method: 'GET',
         headers: {

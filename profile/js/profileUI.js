@@ -1,3 +1,5 @@
+import { createPostElement } from "../../src/utils/postUtils.js";
+
 // Update the user information
 export function updateUserInformation(profile) {
     document.querySelector('.username').textContent = profile.name || 'John Doe';
@@ -8,7 +10,7 @@ export function updateUserInformation(profile) {
 
 // Display the user's posts
 export function displayUserPosts(posts) {
-    const postsContainer = document.querySelector('.user-posts .row');
+    const postsContainer = document.querySelector('.posts-grid');
     postsContainer.innerHTML = '';
 
     if (posts.length === 0) {
@@ -18,21 +20,7 @@ export function displayUserPosts(posts) {
         postsContainer.appendChild(noPostsMessage);
     } else {
         posts.forEach(post => {
-            const postElement = document.createElement('div');
-            postElement.className = 'col-md-4 mb-3';
-            postElement.innerHTML = `
-                <div class="card post-card">
-                    <img src="${post.mediaUrl}" class="card-img-top" alt="${post.mediaAlt}">
-                    <div class="card-body">
-                        <h5 class="card-title">${post.title}</h5>
-                        <p class="card-text">${post.body}</p>
-                        <div class="post-meta">
-                            <div class="username">${post.username || 'Anonymous'}</div>
-                            <small class="text-muted">Posted on ${new Date(post.date).toLocaleDateString()}</small>
-                        </div>
-                    </div>
-                </div>
-                `;
+            const postElement = createPostElement(post, { showAuthor: false });
             postsContainer.appendChild(postElement);
         });
     }
