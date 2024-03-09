@@ -6,10 +6,24 @@ export async function fetchPosts(tag = '', sort = 'latest', searchQuery = '') {
     const queryParams = new URLSearchParams();
     const accessToken = getToken();
 
+    // Append tag if it exists
     if (tag) queryParams.append('_tag', tag);
 
-    let url = `/social/posts?${queryParams.toString()}`;
+    // Append search query if it exists
+    if (searchQuery) queryParams.append('q', searchQuery);
 
+    // Handle sorting
+    if (sort === 'mostLiked') {
+        queryParams.append('_sort', 'likes');
+    } else if (sort === 'latest') {
+        queryParams.append('_sort', 'latest');
+    } else if (sort === 'mostCommented') {
+        queryParams.append('_sort', 'comments');
+    }
+
+    // Construct URL
+    let url = `/social/posts?${queryParams.toString()}`;
+    
     return await fetchWithToken(url, { 
         method: 'GET',
         headers: {

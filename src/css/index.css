@@ -30,6 +30,10 @@ span {
   letter-spacing: 0.7px;
 }
 
+.cursor-pointer {
+  cursor: pointer;
+}
+
 .navbar {
   width: 100%;
   background-color: #0d0d0d;
