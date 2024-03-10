@@ -1,13 +1,21 @@
-import { fetchPosts, fetchPostsById } from "../../src/api/postsApi.js";
+/**
+ * Imports fetchPosts and fetchPostById functions from postsApi module.
+ */
+import { fetchPosts, fetchPostById } from "../../src/api/postsApi.js";
 
+// List of available tags for posts filtering
 const availableTags = ['Nutrition', 'Workouts', 'Motivation', 'Progress', 'Equipment', 'Supplements'];
 let selectedTag = '';
 
 const tagFiltersDiv = document.getElementById('tagFilters');
 
+/**
+ * Displays the modal with details for a given post.
+ * @param {number} postId - The ID of the post to fetch details for.
+ */
 async function showPostDetailsModal(postId) {
     try {
-        const postResponse = await fetchPostsById(postId);
+        const postResponse = await fetchPostById(postId);
         const postData = await postResponse.data;
 
         // Populate modal with post data
@@ -23,7 +31,13 @@ async function showPostDetailsModal(postId) {
     }
 }
 
-// Function to create a single post element
+/**
+ * Creates an HTML element representing a single post.
+ * @param {Object} post - The post data to create an element for.
+ * @param {Object} options - Options for post element creation.
+ * @param {boolean} options.showAuthor - Determines if the author's name should be shown.
+ * @returns {HTMLElement} The created post element.
+ */
 function createPostElement({ id, avatar, media, author, created, title, body, _count }) {
   const avatarUrl = avatar?.url || 'https://i.ibb.co/b56xqf9/default-avatar.png';
   const avatarAlt = avatar?.alt || 'Default avatar';
@@ -60,7 +74,10 @@ function createPostElement({ id, avatar, media, author, created, title, body, _c
   return postElement;
 }
 
-// Function to render all posts
+/**
+ * Renders all given posts into the DOM.
+ * @param {Array} posts - An array of post objects to render.
+ */
 function renderPosts(posts) {
   const postsContainer = document.querySelector('.posts-grid');
   postsContainer.innerHTML = '';
@@ -72,6 +89,12 @@ function renderPosts(posts) {
   }
 }
 
+/**
+ * Loads posts based on specified criteria and renders them.
+ * @param {string} tag - The tag to filter posts by.
+ * @param {string} sort - The sorting criteria for posts.
+ * @param {string} searchQuery - The query string to search posts by.
+ */
 export async function loadPosts(tag = '', sort = 'latest', searchQuery = '') {
   try {
     const response = await fetchPosts(tag, sort, searchQuery);
@@ -89,6 +112,12 @@ export async function loadPosts(tag = '', sort = 'latest', searchQuery = '') {
   }
 }
 
+/**
+ * Applies a filter to an array of posts based on a given criterion.
+ * @param {string} filterCriteria - The criterion to filter posts by.
+ * @param {Array} posts - The posts to apply the filter to.
+ * @returns {Array} The filtered array of posts.
+ */
 function applyFilter(filterCriteria, posts) {
   switch (filterCriteria) {
     case 'mostLiked':
@@ -100,7 +129,9 @@ function applyFilter(filterCriteria, posts) {
   }
 }
 
-// Initialize tag chips
+/**
+ * Initializes tag chips for filtering posts by tags.
+ */
 function initializeTagChips() {
     availableTags.forEach(tag => {
         const chip = document.createElement('span');
@@ -131,7 +162,7 @@ function initializeTagChips() {
     });
 }
 
-// Event listeners and initial load are kept the same for brevity
+// Event listeners and initial load logic
 document.addEventListener('DOMContentLoaded', () => {
     // Listener for sortOptions dropdown changes
     const sortOptionsDropdown = document.getElementById('sortOptions');
