@@ -36,17 +36,29 @@ export async function fetchPosts(tag = '', sort = 'latest', searchQuery = '', in
     });
 }
 
-export async function fetchPostsById(postId) {
+export async function fetchPostById(postId) {
+    const url = `/social/posts/${postId}`;
     const accessToken = getToken();
-    let url = `/social/posts/${postId}`;
 
-    return await fetchWithToken(url, { 
-        method: 'GET',
-        headers: {
-            'Authorization': `Bearer ${accessToken}`,
-            'X-Noroff-API-Key': API_KEY,
+    try {
+        const response = await fetchWithToken(url, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${accessToken}`,
+                'Content-Type': 'application/json',
+                'X-Noroff-API-Key': API_KEY,
+            }
+        });
+        if (!response.ok) {
+            throw new Error(`API call failed with status: ${response.status}`);
         }
-    });
+
+        const jsonResponse = await response.json();
+        return jsonResponse.data;
+    } catch (error) {
+        console.error(`API call to ${url} failed:`, error);
+        throw error;
+    }
 }
 
 export async function createPost(postData) {
@@ -58,5 +70,40 @@ export async function createPost(postData) {
             'X-Noroff-API-Key': API_KEY,
         }
     });
+}
+
+export async function updatePost(postId, postData) {
+    const url = `/social/posts/${postId}`;
+    const accessToken = getToken();
+
+    try {
+        const data = await fetchWithToken(url, {
+            method: 'PUT',
+            body: JSON.stringify(postData),
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${accessToken}`,
+                'X-Noroff-API-Key': API_KEY,
+            },
+        });
+
+        console.log('Updated post:', data);
+        return data;
+    } catch (error) {
+        console.error(`Failed to update post: ${error.message}`, error);
+        throw error;
+    }
+}
+
+export function openEditModal(postData) {
+    // Fill the modal with the post data
+    document.getElementById('editPostId').value = postData.id;
+    document.getElementById('editPostTitle').value = postData.title;
+    document.getElementById('editPostContent').value = postData.body;
+    document.getElementById('editPostImage').value = postData.media ? postData.media.url : '';
+
+    // Show the modal
+    const editModal = new bootstrap.Modal(document.getElementById('editModal'));
+    editModal.show();
 }
 

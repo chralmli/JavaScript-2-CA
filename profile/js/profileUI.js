@@ -1,4 +1,6 @@
 import { createPostElement } from "../../src/utils/postUtils.js";
+import { updatePost, fetchPostById, openEditModal } from "../../src/api/postsApi.js";
+import { loadPosts } from "../../feed/js/feed.js";
 
 // Update the user information
 export function updateUserInformation(profile) {
@@ -24,6 +26,26 @@ export function displayUserPosts(posts) {
             postsContainer.appendChild(postElement);
         });
     }
+
+    // add click listeners to edit buttons
+    document.querySelectorAll('.edit-post-btn').forEach(button => {
+        button.addEventListener('click', (event) => {
+            event.stopPropagation();
+
+            const postId = event.target.getAttribute('data-post-id');
+            const foundPostData = posts.find(post => post.id.toString() === postId);
+
+            if (foundPostData) {
+                openEditModal(foundPostData);
+            } else {
+                fetchPostById(postId).then(fetchedPostData => {
+                    if (fetchedPostData) {
+                        openEditModal(fetchedPostData);
+                    }
+                }).catch(error => console.error('Error fetching post data:', error));
+            }
+        });
+    });
 }
 
 // Display followers and following
@@ -57,6 +79,46 @@ export function displayFollowLists(following, followers) {
     }
 }
 
+// Initialize event listeners for the edit post form
+function setupEditPostForm() {
+    const editPostForm = document.getElementById('editPostForm');
+
+    editPostForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        const postId = document.getElementById('editPostId').value;
+        const title = document.getElementById('editPostTitle').value;
+        const body = document.getElementById('editPostContent').value;
+        const mediaUrl = document.getElementById('editPostImage').value;
+
+        const postData = {
+            title,
+            body,
+            ...(mediaUrl && {media: { url: mediaUrl }}),
+        };
+
+
+        try {
+            await updatePost(postId, postData);
+
+            alert('Post updated successfully');
+
+            // Close the modal
+            const editModal = bootstrap.Modal.getInstance(document.getElementById('editModal'));
+            editModal.hide();
+
+            // Refresh post list and display the updated post
+            loadPosts();
+        } catch (error) {
+            console.error('Error updating post:', error);
+            alert('Failed to update post');
+        }
+    });
+}
+
+setupEditPostForm();
+
+
 // Initialize edit profile form with user data
 export function initializeEditProfileForm(profile) {
     document.getElementById('bio').value = profile.bio || '';
@@ -80,3 +142,4 @@ export function collectFormData(form) {
         },
     };
 }
+
