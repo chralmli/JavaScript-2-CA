@@ -41,7 +41,7 @@ export async function fetchPostById(postId) {
     const accessToken = getToken();
 
     try {
-        const response = await fetchWithToken(url, {
+        const jsonResponse = await fetchWithToken(url, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${accessToken}`,
@@ -49,11 +49,7 @@ export async function fetchPostById(postId) {
                 'X-Noroff-API-Key': API_KEY,
             }
         });
-        if (!response.ok) {
-            throw new Error(`API call failed with status: ${response.status}`);
-        }
 
-        const jsonResponse = await response.json();
         return jsonResponse.data;
     } catch (error) {
         console.error(`API call to ${url} failed:`, error);
@@ -87,7 +83,7 @@ export async function updatePost(postId, postData) {
             },
         });
 
-        console.log('Updated post:', data);
+        // console.log('Updated post:', data);
         return data;
     } catch (error) {
         console.error(`Failed to update post: ${error.message}`, error);

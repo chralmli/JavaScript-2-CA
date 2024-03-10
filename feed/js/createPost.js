@@ -44,7 +44,6 @@ export const handlePostSubmit = async (event) => {
         }
 
         const result = await response.json();
-        console.log(result);
 
         const postModal = new bootstrap.Modal(document.getElementById('newPostModal'));
         postModal.hide();

@@ -37,7 +37,7 @@ export async function createApiKey(name = "My API key name") {
             throw new Error(data.message || 'Failed to create API key');
         }
 
-        console.log("API key created:", data.data.key);
+        // console.log("API key created:", data.data.key);
         return data.data.key;
     } catch (error) {
         console.error("Could not create API key", error);

@@ -15,12 +15,24 @@ const tagFiltersDiv = document.getElementById('tagFilters');
  */
 async function showPostDetailsModal(postId) {
     try {
-        const postResponse = await fetchPostById(postId);
-        const postData = await postResponse.data;
+        const postData = await fetchPostById(postId);
+
+        // Set default message for missing body
+        const defaultMissingText = 'This post does not have a body.';
+
+        if (!postData ||  !postData.title || !postData.body) {
+          console.error('Post data is missing or incomplete', postData);
+          throw new Error('Post data is missing or incomplete');
+        }
 
         // Populate modal with post data
         document.getElementById('modalPostTitle').textContent = postData.title;
         document.getElementById('modalPostBody').textContent = postData.body;
+
+        // Display post's image if available
+        const modalPostImage = document.getElementById('modalPostImage');
+        modalPostImage.src = postData.media && postData.media.url ? postData.media.url : '';
+        modalPostImage.alt = postData.media && postData.media.alt ? postData.media.alt : '';
 
         // Show the modal
         let modal = new bootstrap.Modal(document.getElementById('postDetailsModal'), {});

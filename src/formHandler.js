@@ -25,8 +25,8 @@ export async function handleRegistration(event) {
     try {
         const response = await authApi.register(userData);
         if (response.data && response.data.email) {
-            console.log(response.data.name);
-            console.log(response.data.email);
+            // console.log(response.data.name);
+            // console.log(response.data.email);
             showFeedback('Registration successful!', 'success');
 
             // Switch to login tab after successful registration
@@ -65,22 +65,22 @@ export async function handleLogin(event) {
 
     try {
         const authResponse = await authApi.login(loginData);
-        console.log("Login response:", authResponse);
+        // console.log("Login response:", authResponse);
 
         if (authResponse.data && authResponse.data.accessToken) {
-            console.log(`Access Token: ${authResponse.data.accessToken}`)
+            // console.log(`Access Token: ${authResponse.data.accessToken}`)
             setToken(authResponse.data.accessToken);
 
             localStorage.setItem('userName', authResponse.data.name);
 
             const profileResponse = await fetchProfile();
-            console.log("Profile response:", profileResponse);
+            // console.log("Profile response:", profileResponse);
             setSessionData(authResponse.data.accessToken, profileResponse.data);
             showFeedback(`Welcome ${profileResponse.data.name}`, 'success');
 
 
             const apiKey = await createApiKey();
-            console.log(`API Key: ${apiKey}`);
+            // console.log(`API Key: ${apiKey}`);
 
             window.location.href = '/feed/index.html'
         } else {

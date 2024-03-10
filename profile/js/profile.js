@@ -14,8 +14,8 @@ async function loadProfileData() {
             throw new Error('User name is not available');
         }
 
-        console.log('Loaded profile data:', profileData);
-        console.log('Loaded posts data:', postsData);
+        // console.log('Loaded profile data:', profileData);
+        // console.log('Loaded posts data:', postsData);
 
         updateUserInformation(profileData);
         displayUserPosts(postsData || []);

@@ -79,7 +79,6 @@
 }
 
 .btn-secondary {
-    background-color: transparent;
     padding: 0.5rem 1rem;
 }
 
@@ -103,7 +102,7 @@
 .form-control {
     background-color: transparent;
     border: 1px solid $color-accent-1;
-    color: $color-light;
+    color: $color-dark;
     &:focus {
         // background-color: darken($color-light, 5%);
         border-color: $color-accent-2;
