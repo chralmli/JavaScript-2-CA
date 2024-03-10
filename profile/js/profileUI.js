@@ -1,4 +1,5 @@
 import { createPostElement } from "../../src/utils/postUtils.js";
+import { fetchPostsById, updatePost } from "../../src/api/postsApi.js";
 
 // Update the user information
 export function updateUserInformation(profile) {
@@ -20,10 +21,25 @@ export function displayUserPosts(posts) {
         postsContainer.appendChild(noPostsMessage);
     } else {
         posts.forEach(post => {
-            const postElement = createPostElement(post, { showAuthor: false });
+            const postElement = createPostElement(post, { showAuthor: false, isEditable: true});
             postsContainer.appendChild(postElement);
         });
     }
+}
+
+// show edit post details modal
+export async function showEditModal(postId) {
+    console.log("Opening modal for postId:", postId);
+    const postData = await fetchPostsById(postId)
+    document.getElementById('editPostId').value = postId;
+
+    document.getElementById('editPostTitle').value = postData.title;
+
+    document.getElementById('editPostContent').value = postData.body;
+    document.getElementById('editPostImage').value = postData.media?.url || '';
+
+    let editModal = new bootstrap.Modal(document.getElementById('editPostModal'));
+    editModal.show();
 }
 
 // Display followers and following
@@ -80,3 +96,33 @@ export function collectFormData(form) {
         },
     };
 }
+
+// Edit post form submission handler
+document.getElementById('editPostSubmit').addEventListener('click', async (event) => {
+    event.preventDefault();
+
+    const postId = document.getElementById('editPostId').value;
+    if (!postId) {
+        console.error('Post ID is missing');
+        return;
+    }
+    const title = document.getElementById('editPostTitle').value;
+    const body = document.getElementById('editPostContent').value;
+    const mediaUrl = document.getElementById('editPostImage').value;
+
+    const postData = {
+        title,
+        body,
+        media: mediaUrl ? { url: mediaUrl } : null,
+    };
+
+    try {
+        await updatePost(postId, postData);
+        alert('Post updated successfully');
+        let editModal = bootstrap.Modal.getInstance(document.getElementById('editPostModal'));
+        editModal.hide();
+    } catch (error) {
+        console.error('Failed to update post:', error);
+        alert('Failed to update post');
+    }
+});

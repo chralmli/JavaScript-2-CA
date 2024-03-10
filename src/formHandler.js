@@ -64,34 +64,40 @@ export async function handleLogin(event) {
     }
 
     try {
-        const authResponse = await authApi.login(loginData);
-        console.log("Login response:", authResponse);
+        const response = await authApi.login(loginData);
 
-        if (authResponse.data && authResponse.data.accessToken) {
-            console.log(`Access Token: ${authResponse.data.accessToken}`)
-            setToken(authResponse.data.accessToken);
-
-            localStorage.setItem('userName', authResponse.data.name);
-
-            const profileResponse = await fetchProfile();
-            console.log("Profile response:", profileResponse);
-            setSessionData(authResponse.data.accessToken, profileResponse.data);
-            showFeedback(`Welcome ${profileResponse.data.name}`, 'success');
-
-
-            const apiKey = await createApiKey();
-            console.log(`API Key: ${apiKey}`);
-
-            window.location.href = '/feed/index.html'
+        if (response.ok) {
+            const authResponse = await response.json();
+            console.log(`Access Token: ${authResponse.accessToken}`);
+            if (authResponse && authResponse.accessToken) {
+                setToken(authResponse.accessToken);
+                localStorage.setItem('userName', authResponse.name);
+    
+                const profileResponse = await fetchProfile();
+                if (!profileResponse.ok) {
+                    throw new Error('Failed to fetch profile data.');
+                }
+                const profileData = await profileResponse.json();
+                console.log("Profile response:", profileData);
+    
+                setSessionData(authResponse.accessToken, profileData);
+                showFeedback(`Welcome ${profileData.name}`, 'success');
+    
+    
+                const apiKey = await createApiKey();
+                console.log(`API Key: ${apiKey}`);
+    
+                window.location.href = '/feed/index.html'
+            }
         } else {
-            const errorMessage = authResponse.data.message || 'Unexpected error';
+            const errorResponse = await response.json();
+            const errorMessage = errorResponse.message || 'Login failed with an unexpected error.';
+            console.error(`Login failed: ${errorMessage}`);
             showFeedback(`Login failed: ${errorMessage}', 'error`);
         }
     } catch (error) {
-        showFeedback('An error occurred during login: ' + (error.message || 'Unknown error'), 'error');
         console.error('Login error:', error);
-        showFeedback('An error occurred while fetching profile data: ' + (error.message || 'Unknown error' ), 'error');
-        console.error('Fetching profile data error: ', error);
+        showFeedback('An error occurred during login:'+ (error.message || 'Unknown error'), 'error');
     }
 }
 

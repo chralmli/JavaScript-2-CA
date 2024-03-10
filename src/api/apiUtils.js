@@ -15,12 +15,7 @@ export async function fetchWithToken(endpoint, options) {
 
     try {
         const response = await fetch(url, { ...options, headers });
-        const data = await response.json();
-        if (!response.ok) {
-            throw new Error(`API call failed with status: ${response.status}`);
-        }
-
-        return data;
+        return response;
     } catch (error) {
         console.error(`API call to ${endpoint} failed:`, error);
         throw error;

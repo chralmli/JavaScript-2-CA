@@ -1,6 +1,7 @@
 import { fetchWithToken } from './apiUtils.js';
 import { getToken } from '../utils/storage.js';
 import { API_KEY } from '../config.js';
+import { loadPosts } from "../../feed/js/feed.js"
 
 export async function fetchPosts(tag = '', sort = 'latest', searchQuery = '', includeAuthor = true) {
     const queryParams = new URLSearchParams();
@@ -58,5 +59,71 @@ export async function createPost(postData) {
             'X-Noroff-API-Key': API_KEY,
         }
     });
+}
+
+// Update a post
+export async function updatePost(postId, postData) {
+    const accessToken = getToken();
+    const url = `/social/posts/${postId}`;
+    console.log('Updating post with id:', postId);
+
+    try {
+        const response = await fetchWithToken(url, {
+            method: 'PUT',
+            body: JSON.stringify(postData),
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${accessToken}`,
+                'X-Noroff-API-Key': API_KEY,
+            }
+        });
+
+        console.log('Response status:', response.status);
+
+        // check if response was successful
+        if (!response.ok) {
+            throw new Error(`API call failed with status: ${response.status}`);
+        }
+
+        console.log('Post updated successfully');
+        alert('Post updated successfully');
+
+        // Fetch updated post data after successful update
+        const updatedPost = await fetchAndUpdatePostUI(postId);
+        console.log('Updated post data:', updatedPost);
+
+    } catch (error) {
+        console.error('Failed to update post:', error.message || error);
+        throw error;
+    }
+}
+
+// Delete a post
+export async function deletePost(postId) {
+    const accessToken = getToken();
+
+    try {
+        const response = await fetchWithToken(`/social/posts/${postId}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${accessToken}`,
+                'X-Noroff-API-Key': API_KEY,
+            }
+        });
+
+        // Check if response was successful
+        if (response.ok) {
+            console.log('Post deleted successfully');
+            loadPosts();
+        } else {
+            const errorData = await response.json();
+            console.error('Failed to delete post:', errorData);
+            alert('Failed to delete post');
+        }
+    } catch (error) {
+        console.error('Failed to delete post:', error);
+        alert('Failed to delete post');
+    }
 }
 
