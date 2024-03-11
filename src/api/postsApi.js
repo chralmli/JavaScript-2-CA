@@ -1,6 +1,7 @@
 import { fetchWithToken } from './apiUtils.js';
 import { getToken } from '../utils/storage.js';
 import { API_KEY } from '../config.js';
+import { loadPosts } from '../../feed/js/feed.js';
 
 export async function fetchPosts(tag = '', sort = 'latest', searchQuery = '', includeAuthor = true) {
     const queryParams = new URLSearchParams();
@@ -26,14 +27,21 @@ export async function fetchPosts(tag = '', sort = 'latest', searchQuery = '', in
 
     // Construct URL
     let url = `/social/posts?${queryParams.toString()}`;
-    
-    return await fetchWithToken(url, { 
-        method: 'GET',
-        headers: {
-            'Authorization': `Bearer ${accessToken}`,
-            'X-Noroff-API-Key': API_KEY,
-        }
-    });
+
+    try {
+        const response = await fetchWithToken(url, { 
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${accessToken}`,
+                'Content-Type': 'application/json',
+                'X-Noroff-API-Key': API_KEY,
+            }
+        });
+        return response || { data: [] };
+    } catch (error) {
+        console.error('Error fetching posts', error);
+        throw error;
+    }
 }
 
 export async function fetchPostById(postId) {
@@ -88,6 +96,40 @@ export async function updatePost(postId, postData) {
     } catch (error) {
         console.error(`Failed to update post: ${error.message}`, error);
         throw error;
+    }
+}
+
+// Delete a post
+export async function deletePost(postId) {
+    const accessToken = getToken();
+
+    try {
+        const response = await fetchWithToken(`/social/posts/${postId}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${accessToken}`,
+                'X-Noroff-API-Key': API_KEY,
+            }
+        });
+
+        // Check if response was successful
+        if (response === null) {
+            console.log('Post deleted successfully');
+            loadPosts();
+        } else {
+            if (response.status !== 204 && response.headers.get("Content-Length") !== "0") {
+                const errorData = await response.json();
+                console.error('Failed to delete post:', errorData);
+                alert('Failed to delete post');
+            } else {
+                console.error('Failed to delete post: No response from server');
+                alert('Failed to delete post');
+            }
+        }
+    } catch (error) {
+        console.error('Failed to delete post:', error);
+        alert('Failed to delete post');
     }
 }
 

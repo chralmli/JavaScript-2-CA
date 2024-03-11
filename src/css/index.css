@@ -44,12 +44,12 @@ span {
   padding: 0.5rem 1rem;
 }
 .navbar .navbar-brand {
-  color: #d03e00;
+  color: #8b1c1c;
   font-weight: bold;
   font-size: 1.7rem;
 }
 .navbar .navbar-brand:hover {
-  color: #ff4f04;
+  color: #b52525;
 }
 .navbar .navbar-toggler {
   border-color: #279c9c;
@@ -96,11 +96,11 @@ span {
 }
 
 .btn-primary {
-  background-color: #d03e00;
+  background-color: #8b1c1c;
   border: none;
 }
 .btn-primary:hover {
-  background-color: #9d2f00;
+  background-color: #611313;
 }
 
 .btn-secondary {
@@ -113,18 +113,18 @@ span {
 }
 
 .nav-tabs {
-  border-bottom: 2px solid #d03e00;
+  border-bottom: 2px solid #8b1c1c;
 }
 .nav-tabs .nav-item .nav-link {
   color: #ffffff;
 }
 .nav-tabs .nav-item .nav-link:hover {
-  color: #d03e00;
+  color: #8b1c1c;
 }
 
 .form-control {
   background-color: transparent;
-  border: 1px solid #d03e00;
+  border: 1px solid #8b1c1c;
   color: #0d0d0d;
 }
 .form-control:focus {
@@ -160,13 +160,13 @@ span {
   padding: 0.5rem;
 }
 .feed-page .search-sort-bar .search-form button, .profile-page .search-sort-bar .search-form button {
-  background-color: #d03e00;
+  background-color: #8b1c1c;
   border: none;
   border-radius: 0.25rem;
   padding: 4px 8px;
 }
 .feed-page .search-sort-bar .search-form button:hover, .profile-page .search-sort-bar .search-form button:hover {
-  background-color: #9d2f00;
+  background-color: #611313;
 }
 .feed-page .search-sort-bar .sort-options, .profile-page .search-sort-bar .sort-options {
   display: flex;
@@ -222,7 +222,7 @@ span {
   border-radius: 0;
 }
 .feed-page .post-card .card-body .card-title, .profile-page .post-card .card-body .card-title {
-  color: #d03e00;
+  color: #8b1c1c;
 }
 .feed-page .post-card .card-body .card-text, .profile-page .post-card .card-body .card-text {
   font-family: "Montserrat", sans-serif;
@@ -276,7 +276,7 @@ span {
   float: right;
 }
 .feed-page .modal .modal-content .close:hover, .feed-page .modal .modal-content .close:focus, .profile-page .modal .modal-content .close:hover, .profile-page .modal .modal-content .close:focus {
-  color: #d03e00;
+  color: #8b1c1c;
   text-decoration: none;
   cursor: pointer;
 }
@@ -285,7 +285,7 @@ span {
 }
 .feed-page .modal .modal-content .form-control, .profile-page .modal .modal-content .form-control {
   border-radius: 5px;
-  border: 1px solid #9d2f00;
+  border: 1px solid #611313;
 }
 .feed-page .modal .modal-content .form-control:focus, .profile-page .modal .modal-content .form-control:focus {
   border-color: #279c9c;
@@ -325,7 +325,7 @@ span {
   color: #0d0d0d;
 }
 .feed-page .modal .modal-content form .form-group .form-control:hover, .profile-page .modal .modal-content form .form-group .form-control:hover {
-  border-color: #d03e00;
+  border-color: #8b1c1c;
 }
 .feed-page .modal .modal-content form .form-group .form-control:focus, .profile-page .modal .modal-content form .form-group .form-control:focus {
   border-color: #279c9c;
@@ -336,7 +336,7 @@ span {
   color: #404040;
 }
 .feed-page .modal .modal-content form .btn-primary, .profile-page .modal .modal-content form .btn-primary {
-  background-color: #d03e00;
+  background-color: #8b1c1c;
   color: #ffffff;
   padding: 0.75rem 1.5rem;
   border-radius: 5px;
@@ -345,10 +345,10 @@ span {
   transition: background-color 0.3s ease;
 }
 .feed-page .modal .modal-content form .btn-primary:hover, .profile-page .modal .modal-content form .btn-primary:hover {
-  background-color: #9d2f00;
+  background-color: #611313;
 }
 .feed-page .modal .modal-content form .btn-primary:active, .profile-page .modal .modal-content form .btn-primary:active {
-  background-color: #6a2000;
+  background-color: #360b0b;
 }
 
 .floating-action-button {
@@ -356,8 +356,8 @@ span {
   bottom: 20px;
   right: 20px;
   z-index: 100;
-  background-color: #d03e00;
-  color: #0d0d0d;
+  background-color: #8b1c1c;
+  color: #ffffff;
   border-radius: 10px;
   padding: 0.75rem;
   cursor: pointer;
@@ -365,7 +365,7 @@ span {
   transition: background-color 0.3s, box-shadow 0.3s;
 }
 .floating-action-button:hover {
-  background-color: #9d2f00;
+  background-color: #611313;
   box-shadow: 0 4px 8px rgba(13, 13, 13, 0.4);
 }
 .floating-action-button i {
@@ -379,12 +379,12 @@ span {
 .profile-hero .profile-image {
   width: 150px;
   height: 150px;
-  border: 4px solid #d03e00;
+  border: 4px solid #8b1c1c;
   object-fit: cover;
 }
 .profile-hero .username {
   font-size: 2.5rem;
-  color: #d03e00;
+  color: #8b1c1c;
   margin-top: 0.5rem;
 }
 .profile-hero .user-bio {
@@ -397,7 +397,7 @@ span {
   margin-bottom: 1.5rem;
 }
 .profile-hero .btn-primary {
-  background-color: #d03e00;
+  background-color: #8b1c1c;
   border: none;
   color: #0d0d0d;
   padding: 0.6rem 1.3rem;
@@ -413,13 +413,13 @@ span {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 .profile-hero .toggle-sidebar {
-  background-color: #d03e00;
-  border-color: #d03e00;
+  background-color: #8b1c1c;
+  border-color: #8b1c1c;
   font-weight: normal;
   font-size: 1.4rem;
 }
 .profile-hero .toggle-sidebar:hover {
-  background-color: #9d2f00;
+  background-color: #611313;
 }
 .profile-hero .toggle-sidebar:active {
   transform: translateY(1px);
@@ -442,7 +442,7 @@ span {
   object-fit: cover;
 }
 .user-posts .post-card .card-body .card-title {
-  color: #d03e00;
+  color: #8b1c1c;
 }
 .user-posts .post-card .card-body .card-text {
   font-family: "Montserrat", sans-serif;
@@ -466,7 +466,7 @@ span {
 
 .list-group-item {
   background-color: #272727;
-  color: #d03e00;
+  color: #8b1c1c;
   border: none;
   padding: 0.75rem 1.25rem;
   margin-bottom: 0.5rem;
@@ -486,7 +486,7 @@ span {
 .sidebar-content h4 {
   font-family: "Montserrat", sans-serif;
   font-weight: 800;
-  color: #d03e00;
+  color: #8b1c1c;
 }
 
 .bi {
@@ -523,11 +523,11 @@ span {
 }
 
 .community-section h4 {
-  color: #d03e00;
+  color: #8b1c1c;
 }
 
 .achievements-carousel h4 {
-  color: #d03e00;
+  color: #8b1c1c;
 }
 
 .container-fluid {
@@ -550,7 +550,7 @@ span {
 
 .background-image-holder {
   position: relative;
-  background: url(../images/ironcrew-muscle-bg.png);
+  background: url(../images/ironcrew_background_img.png);
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;

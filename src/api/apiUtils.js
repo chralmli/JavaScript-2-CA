@@ -19,8 +19,14 @@ export async function fetchWithToken(endpoint, options) {
             const errorText = await response.text();
             throw new Error(`API call failed with status: ${response.status} and error: ${errorText}`);
         }
-        const data = await response.json();
-        return data
+
+        // Check if response has content and is of type JSON before parsing
+        const contentType = response.headers.get('Content-Type');
+        if (contentType && contentType.includes('application/json')) {
+            const data = await response.json();
+            return data
+        }
+        return null;
     } catch (error) {
         console.error(`API call to ${endpoint} failed:`, error);
         throw error;

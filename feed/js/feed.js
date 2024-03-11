@@ -120,6 +120,7 @@ export async function loadPosts(tag = '', sort = 'latest', searchQuery = '') {
       document.querySelector('.posts-grid').innerHTML = `<p class="text-center">No posts available for "${tag}" tag.</p>`;
     }
   } catch (error) {
+    console.error('Error fetching posts', error);
     document.querySelector('.posts-grid').innerHTML = `<p class="text-center text-danger">An error occurred while loading posts.</p>`;
   }
 }

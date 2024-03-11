@@ -1,3 +1,4 @@
+import { deletePost } from '../../src/api/postsApi.js';
 export function createPostElement(post, { showAuthor = true }) {
     const avatarUrl = post.avatar?.url || 'https://i.ibb.co/b56xqf9/default-avatar.png';
     const avatarAlt = post.avatar?.alt || 'Default avatar';
@@ -28,10 +29,19 @@ export function createPostElement(post, { showAuthor = true }) {
                 <span><i class="bi bi-chat"></i> ${post._count && post._count.comments ? post._count.comments : 0} Comments</span>
             </div>
             <button type="button" class="btn btn-outline-secondary btn-sm edit-post-btn" data-post-id="${post.id}" data-bs-toggle="modal" data-bs-target="#editModal">Edit</button>
+            <button class="btn btn-sm btn-danger delete-post" data-post-id="${post.id}">Delete</button>
         </div>
         </div>
     `;
 
     postElement.innerHTML = postHTML;
+
+    const deleteButton = postElement.querySelector('.delete-post');
+
+    deleteButton.addEventListener('click', (event) => {
+        event.stopPropagation();
+        deletePost(post.id).catch(console.error);
+    });
+    
     return postElement;
 }
